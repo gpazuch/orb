@@ -43,3 +43,63 @@ $orb-secondary-pressed: #ba104d;
 $orb-secondary-focused: #ba104d;
 $orb-secondary-focused-border: #ff8bb4;
 $orb-secondary-inactive: $orb-gray-1;
+
+.text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+
+  .page-title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .large-input {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+  }
+
+  .button {
+    line-height: 16px;
+  }
+
+  .button-semi-bold {
+    font-weight: bolder;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .label {
+    line-height: 18px;
+    letter-spacing: -0.5px;
+  }
+
+  .body-regular {
+    line-height: 20px;
+  }
+
+  .body-selected {
+    line-height: 20px;
+    font-weight: bold;
+  }
+
+  .breadcrumbs {
+    line-height: 12px;
+    font-size: 12px;
+    font-weight: bold
+  }
+
+  .navigation-selected {
+    line-height: 12px;
+    font-size: 12px;
+    font-weight: bolder;
+  }
+
+  .navigation {
+    line-height: 12px;
+    font-size: 12px;
+    font-weight: bold
+  }
+}

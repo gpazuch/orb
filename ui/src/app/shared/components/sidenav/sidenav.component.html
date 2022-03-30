@@ -3,7 +3,12 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>
+      <button><mat-icon aria-hidden="false" aria-label="Home Menu">menu</mat-icon></button>
+      <a class="logo header-logo text body-regular" href="#"><img
+        style="width: 92px;height: 35px;"
+        src="assets/images/orb_logo.png" alt="ORB Overview" class="header-logo"></a>
+    </mat-toolbar>
     <mat-nav-list>
       <app-sidenav-item *ngFor="let item of items"
       [item]="item">

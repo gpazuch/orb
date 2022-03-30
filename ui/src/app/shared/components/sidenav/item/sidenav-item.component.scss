@@ -1,5 +1,9 @@
 @import 'src/app/theme/orb-theme.scss';
 
+.navigation {
+  display: contents;
+}
+
 .mat-list-item {
   color: $orb-theme-text-gray;
 }

@@ -2,16 +2,21 @@
 </div>
 
 <ng-template #linkItem>
-  <a mat-list-item
+  <a class="text navigation"
+     mat-list-item
      routerLink="{{ item?.link }}"
      routerLinkActive="active">
+    <mat-icon>{{ item?.icon }}&nbsp;</mat-icon>
     {{ item?.title }}
   </a>
 </ng-template>
 
 <ng-template #titleItem>
   <mat-list-item>
-    {{ item?.title }}
+    <span class="text navigation">
+      <mat-icon>{{ item?.icon }}&nbsp;</mat-icon>
+      {{ item?.title }}
+    </span>
   </mat-list-item>
 </ng-template>
 

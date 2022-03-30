@@ -20,6 +20,15 @@
   color: $orb-theme-text-gray;
   background-color: $orb-theme-background;
 
+  button {
+    background-color: $orb-theme-background;
+    border: none;
+
+    .mat-icon {
+      color: $orb-theme-text-gray;
+    }
+  }
+
   .mat-primary {
     position: sticky;
     top: 0;

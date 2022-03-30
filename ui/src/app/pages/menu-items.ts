@@ -4,13 +4,13 @@ import { MenuItem } from '../shared/interfaces/menu-item.interface';
 const MENU: MenuItem[] = [
   {
     title: 'Home',
-    icon: 'layout-outline',
+    icon: 'space_dashboard',
     link: 'home',
     home: true,
   },
   {
     title: 'Fleet Management',
-    icon: 'cube-outline',
+    icon: 'view_in_ar',
     children: [
       {
         title: 'Agents',
@@ -24,12 +24,12 @@ const MENU: MenuItem[] = [
   },
   {
     title: 'Sink Management',
-    icon: 'cloud-upload-outline',
+    icon: 'backup',
     link: 'sinks',
   },
   {
     title: 'Dataset Explorer',
-    icon: 'layers-outline',
+    icon: 'layers',
     children: [
       {
         title: 'Policy Management',
@@ -43,14 +43,14 @@ const MENU: MenuItem[] = [
   },
   {
     title: 'Settings',
-    icon: 'settings-2-outline',
+    icon: 'settings',
   },
 ];
 
 const DEV_ITEMS: MenuItem[] = [
   {
     title: 'Dev',
-    icon: 'layout-outline',
+    icon: 'grid_3x3',
     link: '/pages/dev',
   },
 ];
