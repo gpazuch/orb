@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { DevComponent } from '../pages/dev/dev.component';
 import { SidenavItemComponent } from './components/sidenav/item/sidenav-item.component';
+import { ThemeModule } from '../theme/theme.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SidenavItemComponent } from './components/sidenav/item/sidenav-item.com
   ],
   imports: [
     CommonModule,
+    ThemeModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,

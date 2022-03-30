@@ -1,5 +1,8 @@
+@import 'src/app/theme/orb-theme.scss';
+
 .sidenav-container {
   height: 100%;
+  background-color: $orb-theme-background;
 }
 
 .sidenav {

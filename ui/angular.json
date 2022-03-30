@@ -101,6 +101,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/app/theme/orb-theme.scss",
               "src/styles.scss"
             ],
             "scripts": []

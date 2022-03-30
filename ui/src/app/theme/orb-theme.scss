@@ -1,0 +1,43 @@
+// independent colors
+$orb-blue: #3089fc;
+$orb-gray-1: #969fb9;
+$orb-gray-2: #c3c6cf;
+$orb-green: #61f69f;
+$orb-light-blue: #62d9ff;
+$orb-orange: #f2994a;
+$orb-pink: #df316f;
+$orb-purple: #5d3a62;
+$orb-violet: #af50ff;
+$orb-white: #ffffff;
+
+// brand colors
+$orb-brand-blue: $orb-blue;
+$orb-brand-blue-on: $orb-light-blue;
+$orb-brand-pink: $orb-pink;
+$orb-brand-pink-on: $orb-purple;
+
+// background colors
+$orb-theme-background: #171c30;
+$orb-theme-background-dark: #232940;
+$orb-theme-background-darker: #2b3148;
+
+// states
+$orb-state-online: $orb-green;
+$orb-state-stale: $orb-orange;
+$orb-state-error: $orb-pink;
+
+// primary action
+$orb-primary-active: #3089fc;
+$orb-primary-hover: #226fd2;
+$orb-primary-pressed: #0c5dc5;
+$orb-primary-focused: #0c5dc5;
+$orb-primary-focused-border: #62d9ff;
+$orb-primary-inactive: $orb-gray-1;
+
+// secondary action
+$orb-secondary-active: #df316f;
+$orb-secondary-hover: #c9225e;
+$orb-secondary-pressed: #ba104d;
+$orb-secondary-focused: #ba104d;
+$orb-secondary-focused-border: #ff8bb4;
+$orb-secondary-inactive: $orb-gray-1;
