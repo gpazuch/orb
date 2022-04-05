@@ -6,16 +6,16 @@
      mat-list-item
      routerLink="{{ item?.link }}"
      routerLinkActive="active">
-    <mat-icon>{{ item?.icon }}&nbsp;</mat-icon>
-    {{ item?.title }}
+    <mat-icon>{{ item?.icon }}</mat-icon>
+    &nbsp;&nbsp;{{ item?.title }}
   </a>
 </ng-template>
 
 <ng-template #titleItem>
   <mat-list-item>
     <span class="text navigation">
-      <mat-icon>{{ item?.icon }}&nbsp;</mat-icon>
-      {{ item?.title }}
+      <mat-icon>{{ item?.icon }}</mat-icon>
+      &nbsp;&nbsp;{{ item?.title }}
     </span>
   </mat-list-item>
 </ng-template>

@@ -1,5 +1,5 @@
 import { environment } from '../../environments/environment';
-import { MenuItem } from '../shared/interfaces/menu-item.interface';
+import { MenuItem } from '../shared/interfaces/menu.item.interface';
 
 const MENU: MenuItem[] = [
   {
