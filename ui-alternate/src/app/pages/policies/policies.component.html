@@ -1,0 +1,17 @@
+<app-breadcrumbs></app-breadcrumbs>
+<mat-toolbar>
+  <mat-toolbar-row>
+    Agent Policy List
+    <span class="spacer"></span>
+    <button mat-button routerLink="add">Create Policy</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    Filters
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngFor="let policy of policies$ | async">
+    <app-policy-item [policy]="policy">
+    </app-policy-item>
+  </mat-grid-tile>
+</mat-grid-list>

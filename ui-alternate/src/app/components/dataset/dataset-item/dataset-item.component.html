@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-title>{{ dataset?.name }}</mat-card-title>
+  <mat-card-subtitle>
+    <span>{{ dataset?.valid }}</span>
+    <span>{{ dataset?.ts_created | date: "M/d/yy, HH:mm z" }}</span>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <span>{{ dataset?.agent_group_id }}</span>
+    <span>{{ dataset?.agent_policy_id }}</span>
+    <span>{{ dataset?.sink_ids }}</span>
+    <span>{{ dataset?.dataset_metadata | json }}</span>
+    <app-tag-display [tags]="dataset.tags">Tags:</app-tag-display>
+  </mat-card-content>
+</mat-card>

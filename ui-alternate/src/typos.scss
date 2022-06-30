@@ -1,0 +1,98 @@
+@use '@angular/material' as mat;
+
+
+$orb-text-page-title: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 400,
+  $font-size: 1.5em,
+  $line-height: 2,
+  $letter-spacing: normal,
+);
+
+$orb-text-large-input: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 500,
+  $font-size: 1em,
+  $line-height: 1.5,
+  $letter-spacing: normal,
+);
+
+$orb-text-button: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 400,
+  $font-size: 0.875em,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$orb-text-button-semibold: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 500,
+  $font-size: 0.875em,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+$orb-text-label: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 500,
+  $font-size: 0.875em, //24px
+  $line-height: 1.125em, //3x
+  $letter-spacing: -0.0312em,
+);
+
+$orb-text-body-regular: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 400,
+  $font-size: 0.875em, //24px
+  $line-height: 1.25em, //3x
+  $letter-spacing: normal,
+);
+
+$orb-text-body-selected: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 500,
+  $font-size: 0.875em, //24px
+  $line-height: 1.25em, //3x
+  $letter-spacing: normal,
+);
+
+$orb-text-breadcrumbs: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 500,
+  $font-size: 0.75em, //24px
+  $line-height: 0.75em, //3x
+  $letter-spacing: normal,
+);
+
+$orb-text-nav-selected: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 700,
+  $font-size: 0.75em, //24px
+  $line-height: 0.75em, //3x
+  $letter-spacing: normal,
+);
+
+$orb-text-nav: mat.define-typography-level(
+  $font-family: 'Montserrat',
+  $font-weight: 400,
+  $font-size: 0.75em, //24px
+  $line-height: 0.75em, //3x
+  $letter-spacing: normal,
+);
+
+$orb-typography-config: mat.define-typography-config(
+    $display-4: $orb-text-breadcrumbs,
+    $display-3: $orb-text-breadcrumbs,
+    $display-2: $orb-text-nav-selected,
+    $display-1: $orb-text-nav,
+    $headline: $orb-text-page-title,
+    $title: $orb-text-page-title,
+    $subheading-2: $orb-text-label,
+    $subheading-1: $orb-text-label,
+    $body-1: $orb-text-body-regular,
+    $body-2: $orb-text-body-regular,
+    $caption: $orb-text-breadcrumbs,
+    $button: $orb-text-button,
+    $input: $orb-text-large-input,
+)

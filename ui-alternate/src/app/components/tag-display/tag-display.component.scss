@@ -1,0 +1,14 @@
+mat-chip-list {
+  display: flex;
+}
+
+::ng-deep .mat-chip-list-wrapper {
+  margin: 2px -4px !important;
+}
+
+.mat-standard-chip {
+  min-height: 24px;
+  padding: 8px 8px;
+}
+
+

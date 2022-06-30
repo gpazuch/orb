@@ -1,0 +1,16 @@
+<mat-card>
+  <mat-card-title>{{ group?.name }}</mat-card-title>
+  <mat-card-subtitle>
+    <span>{{ group?.matching_agents?.online }}</span>
+    <span>/</span>
+    <span>{{ group?.matching_agents?.total }}</span>
+    <span class="last_hb"> {{ group?.ts_created | date: "M/d/yy, HH:mm z" }}</span>
+  </mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <p><span>{{ group?.description }}</span>
+    <span>{{ group?.channel_id }}</span>
+    <span>{{ group?.agents }}</span></p>
+    <app-tag-display [tags]="group.tags">Tags:</app-tag-display>
+  </mat-card-content>
+</mat-card>

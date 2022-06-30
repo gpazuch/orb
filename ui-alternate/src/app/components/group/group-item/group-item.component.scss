@@ -1,0 +1,67 @@
+@import 'src/colors.scss';
+
+.mat-card {
+  display: block;
+  min-width: 15em;
+  min-height: 15rem;
+  max-width: 20em;
+  max-height: 20em;
+
+  border-top-width: 1px;
+  border-top-style: solid;
+
+  .new {
+    border-top-color: $orb-violet;
+  }
+
+  .online {
+    border-top-color: $orb-green;
+  }
+
+  .offline {
+    border-top-color: $orb-pink;
+  }
+
+  .stale {
+    border-top-color: $orb-orange;
+  }
+
+  .removed {
+    border-top-color: $orb-gray-1;
+  }
+}
+
+.mat-card-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-card-subtitle {
+  margin: 1em 0;
+}
+
+.mat-card-content {
+  display: inline-grid;
+  margin-top: 0em;
+  height: 8rem;
+  width: 100%;
+  justify-items: start;
+  align-items: start;
+  justify-content: space-between;
+  align-content: space-around;
+}
+
+.last_hb {
+  float: right;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+
+  > mat-icon {
+    margin-right: 0.25em;
+  }
+}

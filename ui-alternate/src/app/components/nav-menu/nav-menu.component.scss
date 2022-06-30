@@ -1,0 +1,52 @@
+@import 'src/styles';
+
+.profile {
+  margin-left: auto;
+  color: $orb-theme-text-gray;
+}
+
+mat-icon {
+  margin-right: 1rem;
+}
+
+.sidenav-container {
+  height: 100%;
+  background-color: $orb-theme-background;
+}
+
+.mat-sidenav {
+  width: 200px;
+  background-color: $orb-theme-background;
+  border: none;
+}
+
+.mat-sidenav .mat-toolbar {
+  background: inherit;
+  background-color: $orb-theme-background-light;
+}
+
+.mat-drawer-content {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.mat-toolbar {
+  color: $orb-theme-text-gray;
+  background-color: $orb-theme-background-light;
+
+  button {
+    background-color: $orb-theme-background-light;
+    border: 1px;
+
+    .mat-icon {
+      color: $orb-theme-text-gray;
+    }
+  }
+
+  .mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: $orb-theme-background;
+  }
+}

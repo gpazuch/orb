@@ -1,0 +1,20 @@
+<app-breadcrumbs></app-breadcrumbs>
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>Agent List</span>
+    <span class="spacer"></span>
+    <button mat-button class="mat-flat-button"
+            color="accent"
+            routerLink="add">Create Agent</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <span>Filters</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+  <app-agent-item
+    class="item"
+    *ngFor="let agent of agents$ | async"
+    [agent]="agent">
+  </app-agent-item>
+</div>

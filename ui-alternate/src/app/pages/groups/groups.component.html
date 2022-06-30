@@ -1,0 +1,18 @@
+<app-breadcrumbs></app-breadcrumbs>
+<mat-toolbar>
+  <mat-toolbar-row>
+    Agent Group List
+    <span class="spacer"></span>
+    <button mat-button routerLink="add">Create Group</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    Filters
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container">
+  <app-group-item
+    class="item"
+    *ngFor="let groups of groups$ | async"
+    [group]="groups">
+  </app-group-item>
+</div>

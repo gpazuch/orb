@@ -1,0 +1,17 @@
+<app-breadcrumbs></app-breadcrumbs>
+<mat-toolbar>
+  <mat-toolbar-row>
+    Sink List
+    <span class="spacer"></span>
+    <button mat-button routerLink="add">Create Sink</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    Filters
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngFor="let sink of sinks$ | async">
+    <app-sink-item [sink]="sink">
+    </app-sink-item>
+  </mat-grid-tile>
+</mat-grid-list>

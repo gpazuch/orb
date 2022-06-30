@@ -1,0 +1,11 @@
+<ng-content></ng-content>
+<mat-chip-list>
+  <mat-chip
+  *ngFor="let tag of tags | keyvalue; index as i;"
+  [style.background-color]="tag | tagColor">
+  {{ tag.key + ": " + tag.value }}
+</mat-chip>
+<mat-chip *ngIf="(tags | json) === '{}'">
+  No tags.
+</mat-chip>
+</mat-chip-list>

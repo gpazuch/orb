@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>{{ policy?.name }}</mat-card-title>
+  <mat-card-subtitle>
+    <span>{{ policy?.ts_created | date: "M/d/yy, HH:mm z" }}</span>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <span>{{ policy?.description }}</span>
+    <span>{{ policy?.backend }}</span>
+    <span>{{ policy?.version }}</span>
+    <span>{{ policy?.schema_version }}</span>
+    <span>{{ policy?.format }}</span>
+    <span>{{ policy?.policy_data }}</span>
+    <app-tag-display [tags]="policy.tags">Tags:</app-tag-display>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,10 @@
+<div class="agent-container">
+  <form [formGroup]="agentForm">
+    <mat-form-field>
+      <mat-label>Agent Name: </mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+  </form>
+  <app-tag-control [tags]="tags" (tagsChange)="(onTagsChange)">
+  </app-tag-control>
+</div>

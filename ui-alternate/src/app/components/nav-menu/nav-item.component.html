@@ -1,0 +1,27 @@
+<div *ngIf="!!item?.link; then linkItem; else titleItem">
+</div>
+
+<ng-template #linkItem>
+  <button class="text navigation"
+          mat-list-item
+          routerLink="{{ item?.link }}"
+          routerLinkActive="active">
+    <mat-icon>{{ item?.icon }}</mat-icon>
+    {{ item?.title }}
+  </button>
+</ng-template>
+
+<ng-template #titleItem>
+  <mat-list-item>
+    <span class="text navigation">
+      <mat-icon>{{ item?.icon }}</mat-icon>
+      {{ item?.title }}
+    </span>
+  </mat-list-item>
+</ng-template>
+
+<div *ngIf="!!item?.children">
+  <app-nav-item *ngFor="let subItem of item.children;"
+                [item]="subItem">
+  </app-nav-item>
+</div>

@@ -1,0 +1,23 @@
+<span><ng-content></ng-content></span>
+<mat-chip-list>
+  <mat-chip *ngFor="let tag of tags | keyvalue; index as i">
+    {{ tag.key + ": " + tag.value
+    }}<button mat-button (click)="onRemoveTag(tag)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-chip>
+  <mat-chip *ngIf="(tags | json) === '{}'"> No tags. </mat-chip>
+</mat-chip-list>
+
+<form [formGroup]="tagForm">
+  <mat-form-field>
+    <mat-label>Key: </mat-label>
+    <input matInput formControlName="key" />
+  </mat-form-field>
+  <span>: </span>
+  <mat-form-field>
+    <mat-label>Value: </mat-label>
+    <input matInput formControlName="value" />
+  </mat-form-field>
+  <button mat-button><mat-icon>add</mat-icon></button>
+</form>
