@@ -1,0 +1,6 @@
+# Stage 0, based on Node.js, install all dependencies
+FROM node:16.15.1 as node
+
+WORKDIR /app
+COPY package.json /app/
+RUN npm install
