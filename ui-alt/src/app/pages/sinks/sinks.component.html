@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="page-title">Sink List</span>
+    <span class="spacer"></span>
+    <button
+      mat-button
+      class="mat-flat-button"
+      color="accent"
+      (click)="addItem = true"
+    >
+      Create Sink
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <app-filter [availableFilters]="filterOptions"></app-filter>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container" fxLayout="row" fxLayoutAlign="space-evenly start">
+  <app-sink-item
+    [sink]="sink"
+    *ngFor="let sink of filteredSinks$ | async"
+    fxFlex="1 1 auto"
+  >
+  </app-sink-item>
+  <app-sink-add
+    *ngIf="addItem"
+    (onClose)="addItem = false"
+    fxFlex="1 0 auto"
+  ></app-sink-add>
+</div>

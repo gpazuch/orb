@@ -1,0 +1,120 @@
+// independent colors
+$orb-blue: #3089fc;
+$orb-gray-1: #969fb9;
+$orb-gray-2: #c3c6cf;
+$orb-green: #61f69f;
+$orb-light-blue: #62d9ff;
+$orb-orange: #f2994a;
+$orb-pink: #df316f;
+$orb-purple: #5d3a62;
+$orb-violet: #af50ff;
+$orb-white: #ffffff;
+
+// brand colors
+$orb-brand-blue: $orb-blue;
+$orb-brand-blue-on: $orb-light-blue;
+$orb-brand-pink: $orb-pink;
+$orb-brand-pink-on: $orb-purple;
+
+// background colors
+$orb-theme-background: #171c30;
+$orb-theme-background-light: #232940;
+$orb-theme-background-lighter: #2b3148;
+$orb-theme-text-white: $orb-white;
+$orb-theme-text-gray: $orb-gray-1;
+
+// states
+$orb-state-online: $orb-green;
+$orb-state-stale: $orb-orange;
+$orb-state-error: $orb-pink;
+
+// primary action
+$orb-primary-active: #3089fc;
+$orb-primary-hover: #226fd2;
+$orb-primary-pressed: #0c5dc5;
+$orb-primary-focused: #0c5dc5;
+$orb-primary-focused-border: #62d9ff;
+$orb-primary-inactive: $orb-gray-1;
+
+// secondary action
+$orb-secondary-active: #df316f;
+$orb-secondary-hover: #c9225e;
+$orb-secondary-pressed: #ba104d;
+$orb-secondary-focused: #ba104d;
+$orb-secondary-focused-border: #ff8bb4;
+$orb-secondary-inactive: $orb-gray-1;
+
+// palettes
+$orb-grey-palette: (
+  50: darken($orb-theme-background, 5%),
+  100: $orb-theme-background,
+  200: lighten($orb-theme-background, 5%),
+  300: lighten($orb-theme-background, 10%),
+  400: lighten($orb-theme-background, 15%),
+  500: $orb-theme-background-light,
+  600: lighten($orb-theme-background-light, 5%),
+  700: lighten($orb-theme-background-light, 10%),
+  800: lighten($orb-theme-background-light, 15%),
+  900: $orb-theme-background-lighter,
+  A100: $orb-gray-1,
+  A200: lighten($orb-gray-1, 5%),
+  A400: lighten($orb-gray-1, 20%),
+  A700: $orb-gray-2,
+  contrast: (
+    50: $orb-white,
+    100: $orb-white,
+    200: $orb-white,
+    300: $orb-white,
+    400: $orb-white,
+    500: $orb-white,
+    600: $orb-white,
+    700: $orb-white,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+.page-title,
+.label,
+.large-input {
+  color: $orb-theme-text-white;
+}
+
+.body-regular {
+  color: $orb-theme-text-gray;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $orb-theme-text-gray !important;
+}
+
+mat-card,
+mat-card-title > span,
+mat-option,
+.orb-errors {
+  &.new {
+    color: $orb-violet !important;
+  }
+
+  &.online,
+  &.active {
+    color: $orb-green !important;
+  }
+
+  &.offline {
+    color: $orb-orange !important;
+  }
+
+  &.stale,
+  &.error {
+    color: $orb-pink !important;
+  }
+
+  &.removed {
+    color: $orb-gray-1 !important;
+  }
+}

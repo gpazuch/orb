@@ -1,0 +1,31 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="page-title">Agent List</span>
+    <span class="spacer"></span>
+    <button
+      mat-button
+      class="mat-flat-button"
+      color="accent"
+      (click)="addItem = true"
+    >
+      Create Agent
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <app-filter [availableFilters]="filterOptions"></app-filter>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div fxLayout.gt-sm="row" fxLayout.sm="column-reverse" style="height: 100%">
+  <div class="container" fxLayoutAlign="space-evenly start">
+    <app-agent-item
+      fxFlex="2 1 auto"
+      *ngFor="let agent of filteredAgents$ | async"
+      [agent]="agent"
+    ></app-agent-item>
+  </div>
+  <app-agent-add
+    *ngIf="addItem"
+    (onClose)="addItem = false"
+    fxFlex="1 0 auto"
+  ></app-agent-add>
+</div>

@@ -1,0 +1,22 @@
+<mat-card [ngClass]="agent?.state || ''">
+  <mat-card-title class="label">
+    <span>{{ agent?.name }}</span>
+    <span class="body-regular state" [ngClass]="agent?.state || ''">
+      <mat-icon>{{ stateIcon() }}</mat-icon>
+      {{ agent?.state }}
+    </span>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <span class="body-regular last_hb">{{
+      agent?.ts_last_hb | date: "M/d/yy, HH:mm z"
+    }}</span>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <app-tag-display [tags]="agent.orb_tags"
+      ><p class="body-regular">Orb Tags</p></app-tag-display
+    >
+    <app-tag-display [tags]="agent.agent_tags"
+      ><p class="body-regular">Agent Tags</p></app-tag-display
+    >
+  </mat-card-content>
+</mat-card>

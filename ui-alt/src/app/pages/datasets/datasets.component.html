@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    Dataset List
+    <span class="spacer"></span>
+    <button mat-button routerLink="add">Create Dataset</button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <app-filter></app-filter>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-grid-list cols="5">
+  <mat-grid-tile *ngFor="let dataset of datasets$ | async">
+    <app-dataset-item [dataset]="dataset"> </app-dataset-item>
+  </mat-grid-tile>
+</mat-grid-list>

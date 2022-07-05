@@ -1,0 +1,16 @@
+<mat-card [ngClass]="policyState()">
+  <mat-card-title class="label">
+    <span>{{ policy?.name }}</span>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <span class="body-regular last_hb">{{ policy?.ts_last_modified | date: "M/d/yy, HH:mm z" }}</span>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <p class="body-regular">{{ policy?.description }}</p>
+    <p class="body-regular">{{ policy?.backend }}</p>
+    <p class="body-regular">{{ policy?.version }}</p>
+    <p class="body-regular">{{ policy?.schema_version }}</p>
+    <p class="body-regular">{{ policy?.format }}</p>
+    <p class="body-regular">{{ policy?.policy_data }}</p>
+  </mat-card-content>
+</mat-card>
