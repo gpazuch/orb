@@ -52,6 +52,8 @@ export class AgentAddComponent implements OnInit {
 
     // TODO get response of addAgent route
     // and show dialog with provisioning command.
+
+    this.onClose.emit();
   }
 
   onDiscard() {

@@ -1,3 +1,5 @@
+@import "src/colors.scss";
+
 :host {
   display: contents;
   flex-wrap: wrap;
@@ -15,4 +17,14 @@ mat-form-field {
 mat-chip > button.ghost-button {
   min-width: 0;
   padding: 0;
+}
+
+.filter-chip {
+  color: $orb-blue !important;
+  border: solid;
+  background-color: transparent;
+}
+
+.applied-label {
+  padding-right: 4px;
 }

@@ -12,7 +12,11 @@ export class AgentService {
   constructor(private http: HttpClient) {}
 
   addAgent(agent: Agent) {
-    return this.http.post(environment.agents, agent);
+    return this.http.post(environment.agents, {
+      ...agent,
+      orb_tags: JSON.parse(agent.orb_tags),
+      validate_only: false,
+    });
   }
 
   getAgentById(id: string) {

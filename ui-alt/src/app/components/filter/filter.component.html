@@ -26,17 +26,20 @@
     <button mat-button (click)="addFilter()" class="ghost-button">
       <mat-icon color="accent">add</mat-icon>
     </button>
-    <mat-chip>
-      {{ selectedFilter.name + ": " + (selectedFilter?.param || "") }}
+    <mat-chip class="filter-chip">
+      {{ selectedFilter.name + ": " + (filterParam || "") }}
     </mat-chip>
   </div>
 </ng-container>
 
 <ng-container class="applied-filters" *ngIf="activeFilters$">
   <span class="spacer"></span>
-  <span class="label">Applied Filters</span>
+  <span class="body-regular applied-label">Applied Filters</span>
   <mat-chip-list>
-    <mat-chip *ngFor="let filter of activeFilters$ | async; let index = index">
+    <mat-chip
+      class="filter-chip"
+      *ngFor="let filter of activeFilters$ | async; let index = index"
+    >
       {{ filter.name + ": " + filter?.param }}
       <button mat-button class="ghost-button" (click)="removeFilter(index)">
         <mat-icon>close</mat-icon>
