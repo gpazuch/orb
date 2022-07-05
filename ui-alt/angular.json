@@ -26,6 +26,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -55,7 +56,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": true,
+              "sourceMap": false,
+              "stylePreprocessorOptions": {
+                "includePaths": ["src/styles.scss", "src/colors.scss", "src/typos.scss"]
+              },
+              "buildOptimizer": true,
+              "aot": true
             },
             "development": {
               "buildOptimizer": false,
