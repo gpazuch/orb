@@ -9,7 +9,7 @@ ARG ENV=""
 
 COPY ./ /app/
 
-RUN PS_SID=$ENV_PS_SID PS_GROUP_KEY=$ENV_PS_GROUP_KEY yarn build:prod
+RUN PS_SID=$ENV_PS_SID PS_GROUP_KEY=$ENV_PS_GROUP_KEY npm run build:prod
 
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1.13-alpine

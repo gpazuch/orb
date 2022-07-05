@@ -37,7 +37,7 @@ export const environment = {
   orbApi: {
     urlKeys: Object.keys(ORB.servicesUrls),
     ...ORB.orbApi,
-    servicesUrls: ORB.servicesUrls,
+    servicesUrls: ORB.servicesUrls as { [prop: string]: string },
   },
   ...ORB.servicesUrls,
 };

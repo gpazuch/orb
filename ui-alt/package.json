@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --port 4201 --proxy-config proxy-config.json",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
