@@ -19,14 +19,8 @@ import {
 
 // default filters
 const defLimit: number = 50;
-const defOrder: string = 'name';
-const defDir = 'asc';
-
 @Injectable()
 export class AgentPoliciesService {
-  paginationCache: any = {};
-
-  cache: OrbPagination<AgentPolicy>;
 
   backendsCache: OrbPagination<{ [propName: string]: any }>;
 
@@ -34,17 +28,6 @@ export class AgentPoliciesService {
     private http: HttpClient,
     private notificationsService: NotificationsService,
   ) {}
-
-  public static getDefaultPagination(): OrbPagination<AgentPolicy> {
-    return {
-      limit: defLimit,
-      order: defOrder,
-      dir: defDir,
-      offset: 0,
-      total: 0,
-      data: null,
-    };
-  }
 
   addAgentPolicy(agentPolicyItem: AgentPolicy): Observable<AgentPolicy> {
     return this.http
@@ -113,13 +96,6 @@ export class AgentPoliciesService {
   deleteAgentPolicy(agentPoliciesId: string) {
     return this.http
       .delete(`${environment.agentPoliciesUrl}/${agentPoliciesId}`)
-      .map((resp) => {
-        this.cache.data.splice(
-          this.cache.data.map((ap) => ap.id).indexOf(agentPoliciesId),
-          1,
-        );
-        return resp;
-      })
       .catch((err) => {
         this.notificationsService.error(
           'Failed to Delete Agent Policies',
@@ -130,9 +106,15 @@ export class AgentPoliciesService {
   }
 
   getAllAgentPolicies() {
-    const pageInfo = AgentPoliciesService.getDefaultPagination();
+    const page = {
+      order: 'name',
+      dir: 'asc',
+      limit: 20,
+      data: [],
+      offset: 0,
+    } as OrbPagination<AgentPolicy>;
 
-    return this.getAgentsPolicies(pageInfo).pipe(
+    return this.getAgentsPolicies(page).pipe(
       expand((data) => {
         return data.next
           ? this.getAgentsPolicies(data.next)
@@ -144,13 +126,12 @@ export class AgentPoliciesService {
     );
   }
 
-  getAgentsPolicies(page: NgxDatabalePageInfo, isFilter = false) {
-    let params = new HttpParams();
-    params = params
-      .set('offset', page.offset.toString())
-      .set('limit', page.limit.toString())
+  getAgentsPolicies(page: OrbPagination<AgentPolicy>) {
+    let params = new HttpParams()
       .set('order', page.order)
-      .set('dir', page.dir);
+      .set('dir', page.dir)
+      .set('offset', page.offset.toString())
+      .set('limit', page.limit.toString());
 
     return this.http
       .get(environment.agentPoliciesUrl, { params })

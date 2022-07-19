@@ -184,11 +184,11 @@ export class DatasetAddComponent {
   getAvailableAgentPolicies() {
     return new Promise((resolve) => {
       this.loading[CONFIG.POLICIES] = true;
-      const pageInfo = { ...AgentPoliciesService.getDefaultPagination(), limit: 100 };
+      
       this.agentPoliciesService
-        .getAgentsPolicies(pageInfo, false)
-        .subscribe((resp: OrbPagination<AgentPolicy>) => {
-          this.availableAgentPolicies = resp.data;
+        .getAllAgentPolicies()
+        .subscribe((resp: AgentPolicy[]) => {
+          this.availableAgentPolicies = resp;
           this.loading[CONFIG.POLICIES] = false;
 
           resolve(this.availableAgentPolicies);
@@ -199,15 +199,14 @@ export class DatasetAddComponent {
   getAvailableSinks() {
     return new Promise((resolve) => {
       this.loading[CONFIG.SINKS] = true;
-      const pageInfo = { ...SinksService.getDefaultPagination(), limit: 100 };
       this.sinksService
-        .getSinks(pageInfo, false)
-        .subscribe((resp: OrbPagination<Sink>) => {
+        .getAllSinks()
+        .subscribe((resp: Sink[]) => {
           this.selectedSinks.forEach((sink) => {
-            sink.name = resp.data.find(anotherSink => anotherSink.id === sink.id).name;
+            sink.name = resp.find(anotherSink => anotherSink.id === sink.id).name;
           });
           const sinkIDMap = this.selectedSinks.map(sink => sink.id);
-          this.availableSinks = resp.data.filter(sink => !sinkIDMap.includes(sink.id));
+          this.availableSinks = resp.filter(sink => !sinkIDMap.includes(sink.id));
           this.loading[CONFIG.SINKS] = false;
 
           resolve(this.availableSinks);

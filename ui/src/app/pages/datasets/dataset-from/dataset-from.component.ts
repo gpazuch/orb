@@ -255,16 +255,15 @@ export class DatasetFromComponent implements OnInit {
   getAvailableSinks() {
     return new Promise((resolve) => {
       this.loading[CONFIG.SINKS] = true;
-      const pageInfo = {...SinksService.getDefaultPagination(), limit: 100};
       this.sinksService
-          .getSinks(pageInfo, false)
-          .subscribe((resp: OrbPagination<Sink>) => {
+          .getAllSinks()
+          .subscribe((resp:Sink[]) => {
             this._selectedSinks.forEach((sink) => {
-              sink.name = resp.data.find(
+              sink.name = resp.find(
                   anotherSink => anotherSink.id === sink.id).name;
             });
 
-            this.availableSinks = resp.data;
+            this.availableSinks = resp;
             this.updateUnselectedSinks();
 
             this.loading[CONFIG.SINKS] = false;
