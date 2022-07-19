@@ -131,7 +131,7 @@ export class AgentsService {
   }
 
   getAllAgents(tags?: any) {
-    const pageInfo = {
+    const page = {
       order: 'name',
       dir: 'asc',
       limit: 20,
@@ -139,7 +139,7 @@ export class AgentsService {
       offset: 0,
       tags,
     } as OrbPagination<Agent>;
-    return this.getAgents(pageInfo).pipe(
+    return this.getAgents(page).pipe(
       expand((data) => {
         return data.next ? this.getAgents(data.next) : EMPTY;
       }),
