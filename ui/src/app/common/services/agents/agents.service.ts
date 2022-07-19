@@ -134,7 +134,7 @@ export class AgentsService {
     const pageInfo = {
       order: 'name',
       dir: 'asc',
-      limit: 100,
+      limit: 20,
       data: [],
       offset: 0,
       tags,
@@ -167,17 +167,17 @@ export class AgentsService {
       .get(`${environment.agentsUrl}`, { params })
       .pipe(
         map((resp: any) => {
-          const { order, direction, offset, limit, total, agents, tags } = resp;
+          const { order, direction: dir, offset, limit, total, agents, tags } = resp;
           const next = offset + limit < total && {
             limit,
             order,
-            dir: direction,
+            dir,
             tags,
             offset: (parseInt(offset, 10) + parseInt(limit, 10)).toString(),
           };
           return {
             order,
-            dir: direction,
+            dir,
             offset,
             limit,
             total,

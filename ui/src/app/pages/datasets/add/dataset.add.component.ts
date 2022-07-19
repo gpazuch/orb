@@ -172,11 +172,8 @@ export class DatasetAddComponent {
   getAvailableAgentGroups() {
     return new Promise((resolve) => {
       this.loading[CONFIG.GROUPS] = true;
-      const pageInfo = { ...AgentGroupsService.getDefaultPagination(), limit: 100 };
-      this.agentGroupsService
-        .getAgentGroups(pageInfo, false)
-        .subscribe((resp: OrbPagination<AgentGroup>) => {
-          this.availableAgentGroups = resp.data;
+      this.agentGroupsService.getAllAgentGroups().subscribe((resp: AgentGroup[]) => {
+          this.availableAgentGroups = resp;
           this.loading[CONFIG.GROUPS] = false;
 
           resolve(this.availableAgentGroups);

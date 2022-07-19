@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, scheduled } from 'rxjs';
 import 'rxjs/add/observable/empty';
 
 import { AgentGroup } from 'app/common/interfaces/orb/agent.group.interface';
@@ -12,51 +12,17 @@ import { NotificationsService } from 'app/common/services/notifications/notifica
 import { environment } from 'environments/environment';
 import {
   catchError,
+  delay,
   expand,
   map, scan,
   takeWhile,
 } from 'rxjs/operators';
-
-// default filters
-const defLimit: number = 100;
-const defOrder: string = 'name';
-const defDir = 'asc';
-
 @Injectable()
 export class AgentGroupsService {
-  paginationCache: any = {};
-
-  cache: OrbPagination<AgentGroup>;
-
   constructor(
     private http: HttpClient,
     private notificationsService: NotificationsService,
-  ) {
-    this.clean();
-  }
-
-  public static getDefaultPagination(): OrbPagination<AgentGroup> {
-    return {
-      limit: defLimit,
-      order: defOrder,
-      dir: 'asc',
-      offset: 0,
-      total: 0,
-      data: null,
-    };
-  }
-
-  clean() {
-    this.cache = {
-      limit: defLimit,
-      offset: 0,
-      order: defOrder,
-      total: 0,
-      dir: defDir,
-      data: [],
-    };
-    this.paginationCache = {};
-  }
+  ) {}
 
   addAgentGroup(agentGroupItem: AgentGroup) {
     return this.http
@@ -116,10 +82,15 @@ export class AgentGroupsService {
   }
 
   getAllAgentGroups() {
-    this.clean();
-    const pageInfo = AgentGroupsService.getDefaultPagination();
+    let page = {
+      order: 'name',
+      dir: 'asc',
+      limit: 100,
+      data: [],
+      offset: 0,
+    } as OrbPagination<AgentGroup>;
 
-    return this.getAgentGroups(pageInfo).pipe(
+    return this.getAgentGroups(page).pipe(
       expand((data) => {
         return data.next ? this.getAgentGroups(data.next) : Observable.empty();
       }),
@@ -129,83 +100,35 @@ export class AgentGroupsService {
     );
   }
 
-  getAgentGroups(pageInfo: NgxDatabalePageInfo, isFilter = false) {
-    let limit = pageInfo?.limit || this.cache.limit;
-    let order = pageInfo?.order || this.cache.order;
-    let dir = pageInfo?.dir || 'asc';
-    let offset = pageInfo?.offset || 0;
-    let doClean = false;
-    let params = new HttpParams();
+  getAgentGroups(page: OrbPagination<AgentGroup>) {
+    const { order, dir, offset, limit } = page;
 
-    if (isFilter) {
-      if (pageInfo?.name) {
-        params = params.set('name', pageInfo.name);
-        // is filter different than last filter?
-        doClean =
-          !this.paginationCache?.name ||
-          this.paginationCache?.name !== pageInfo.name;
-      }
-      // was filtered, no longer
-    } else if (this.paginationCache?.isFilter === true) {
-      doClean = true;
-    }
-
-    if (
-      pageInfo.order !== this.cache.order ||
-      pageInfo.dir !== this.cache.dir
-    ) {
-      doClean = true;
-    }
-
-    if (doClean) {
-      this.clean();
-      offset = 0;
-      limit = this.cache.limit = pageInfo.limit;
-      dir = pageInfo.dir;
-      order = pageInfo.order;
-    }
-
-    if (this.paginationCache[offset]) {
-      return of(this.cache);
-    }
-    params = params
-      .set('offset', offset.toString())
-      .set('limit', limit.toString())
+    let params = new HttpParams()
       .set('order', order)
-      .set('dir', dir);
+      .set('dir', dir)
+      .set('offset', offset.toString())
+      .set('limit', limit.toString());
 
     return this.http
       .get(environment.agentGroupsUrl, { params })
       .map((resp: any) => {
-        this.paginationCache[pageInfo?.offset || 0] = true;
+        const { order, direction: dir, offset, limit, total, agentGroups: data } = resp;
+        const next = offset + limit < total && {
+          limit,
+          order,
+          dir,
+          offset: (parseInt(offset, 10) + parseInt(limit, 10)).toString(),
+        }
 
-        // This is the position to insert the new data
-        const start = pageInfo?.offset || 0;
-
-        const newData = [...this.cache.data];
-
-        newData.splice(start, resp.limit, ...resp.agentGroups);
-
-        this.cache = {
-          ...this.cache,
-          next: resp.offset + resp.limit < resp.total && {
-            limit: resp.limit,
-            offset: (
-              parseInt(resp.offset, 10) + parseInt(resp.limit, 10)
-            ).toString(),
-            order: 'name',
-            dir: 'asc',
-          },
-          limit: resp.limit,
-          offset: resp.offset,
-          dir: resp.direction,
-          order: resp.order,
-          total: resp.total,
-          data: newData,
-          name: pageInfo?.name,
-        };
-
-        return this.cache;
+        return {
+          order,
+          dir,
+          offset,
+          limit,
+          total,
+          data,
+          next,
+        } as OrbPagination<AgentGroup>;
       })
       .catch((err) => {
         this.notificationsService.error(
@@ -234,13 +157,6 @@ export class AgentGroupsService {
   deleteAgentGroup(agentGroupId: string) {
     return this.http
       .delete(`${environment.agentGroupsUrl}/${agentGroupId}`)
-      .map((resp) => {
-        this.cache.data.splice(
-          this.cache.data.map((ag) => ag.id).indexOf(agentGroupId),
-          1,
-        );
-        return resp;
-      })
       .catch((err) => {
         this.notificationsService.error(
           'Failed to Delete Agent Group',

@@ -18,7 +18,7 @@ import {
 } from 'rxjs/operators';
 
 // default filters
-const defLimit: number = 100;
+const defLimit: number = 50;
 const defOrder: string = 'name';
 const defDir = 'asc';
 
