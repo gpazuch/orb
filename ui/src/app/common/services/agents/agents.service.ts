@@ -134,7 +134,7 @@ export class AgentsService {
     const page = {
       order: 'name',
       dir: 'asc',
-      limit: 20,
+      limit: 100,
       data: [],
       offset: 0,
       tags,

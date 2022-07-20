@@ -31,8 +31,6 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
 
   loading = false;
 
-  paginationControls: OrbPagination<Dataset>;
-
   searchPlaceholder = 'Search by name';
 
   // templates
@@ -86,7 +84,7 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     private router: Router,
     private datasetPoliciesService: DatasetPoliciesService,
   ) {
-    this.paginationControls = DatasetPoliciesService.getDefaultPagination();
+    
   }
 
   ngAfterViewChecked() {
@@ -99,7 +97,7 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
   }
 
   ngOnInit() {
-    this.getAllDatasets();
+    
   }
 
   ngAfterViewInit() {
@@ -142,35 +140,6 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     this.cdr.detectChanges();
   }
 
-  getAllDatasets(): void {
-    this.datasetPoliciesService.clean();
-    this.datasetPoliciesService.getAllDatasets().subscribe(resp => {
-      this.paginationControls.data = resp;
-      this.paginationControls.total = resp.length;
-      this.paginationControls.offset = 0;
-      this.loading = false;
-      this.cdr.markForCheck();
-    });
-  }
-
-  getDatasets(pageInfo: NgxDatabalePageInfo = null): void {
-    const finalPageInfo = { ...pageInfo };
-    finalPageInfo.dir = 'desc';
-    finalPageInfo.order = 'name';
-    finalPageInfo.limit = this.paginationControls.limit;
-    finalPageInfo.offset = pageInfo?.offset * pageInfo?.limit || 0;
-
-    this.loading = true;
-    this.datasetPoliciesService.getDatasetPolicies(pageInfo).subscribe(
-      (resp: OrbPagination<Dataset>) => {
-        this.paginationControls = resp;
-        this.paginationControls.offset = pageInfo?.offset || 0;
-        this.paginationControls.total = resp.total;
-        this.loading = false;
-      },
-    );
-  }
-
   onOpenAdd() {
     this.router.navigate(['add'], {
       relativeTo: this.route.parent,
@@ -187,24 +156,6 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     );
   }
 
-  onFilterSelected(filter) {
-    this.searchPlaceholder = `Search by ${ filter.label }`;
-    this.filterValue = null;
-  }
-
-  applyFilter() {
-    if (!this.paginationControls || !this.paginationControls?.data) return;
-
-    if (!this.filterValue || this.filterValue === '') {
-      this.table.rows = this.paginationControls.data;
-    } else {
-      this.table.rows = this.paginationControls.data.filter(sink => this.filterValue.split(/[,;]+/gm).reduce((prev, curr) => {
-        return this.selectedFilter.filter(sink, curr) && prev;
-      }, true));
-    }
-    this.paginationControls.offset = 0;
-  }
-
   openDeleteModal(row: any) {
     const { id } = row;
     this.dialogService.open(DatasetDeleteComponent, {
@@ -216,7 +167,6 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
         if (confirm) {
           this.datasetPoliciesService.deleteDataset(id).subscribe(() => {
             this.notificationsService.success('Dataset successfully deleted', '');
-            this.getAllDatasets();
           });
         }
       },
@@ -231,8 +181,6 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     }).onClose.subscribe((resp) => {
       if (resp) {
         this.onOpenEdit(row);
-      } else {
-        this.getAllDatasets();
       }
     });
   }
