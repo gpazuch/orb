@@ -4,24 +4,13 @@ import { Observable, of } from 'rxjs';
 import 'rxjs/add/observable/empty';
 
 import { AgentPolicy } from 'app/common/interfaces/orb/agent.policy.interface';
-import {
-  NgxDatabalePageInfo,
-  OrbPagination,
-} from 'app/common/interfaces/orb/pagination.interface';
+import { OrbPagination } from 'app/common/interfaces/orb/pagination.interface';
 import { NotificationsService } from 'app/common/services/notifications/notifications.service';
 import { environment } from 'environments/environment';
-import {
-  catchError,
-  expand,
-  map, scan,
-  takeWhile,
-} from 'rxjs/operators';
+import { catchError, expand, map, scan, takeWhile } from 'rxjs/operators';
 
-// default filters
-const defLimit: number = 50;
 @Injectable()
 export class AgentPoliciesService {
-
   backendsCache: OrbPagination<{ [propName: string]: any }>;
 
   constructor(
@@ -121,13 +110,13 @@ export class AgentPoliciesService {
           : Observable.empty();
       }),
       takeWhile((data) => data.next !== undefined),
-      map((page) => page.data),
+      map((_page) => _page.data),
       scan((acc, v) => [...acc, ...v]),
     );
   }
 
   getAgentsPolicies(page: OrbPagination<AgentPolicy>) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('order', page.order)
       .set('dir', page.dir)
       .set('offset', page.offset.toString())

@@ -1,22 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, scheduled } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import 'rxjs/add/observable/empty';
 
 import { AgentGroup } from 'app/common/interfaces/orb/agent.group.interface';
-import {
-  NgxDatabalePageInfo,
-  OrbPagination,
-} from 'app/common/interfaces/orb/pagination.interface';
+import { OrbPagination } from 'app/common/interfaces/orb/pagination.interface';
 import { NotificationsService } from 'app/common/services/notifications/notifications.service';
 import { environment } from 'environments/environment';
-import {
-  catchError,
-  delay,
-  expand,
-  map, scan,
-  takeWhile,
-} from 'rxjs/operators';
+import { catchError, expand, map, scan, takeWhile } from 'rxjs/operators';
 @Injectable()
 export class AgentGroupsService {
   constructor(
@@ -82,7 +73,7 @@ export class AgentGroupsService {
   }
 
   getAllAgentGroups() {
-    let page = {
+    const page = {
       order: 'name',
       dir: 'asc',
       limit: 100,
@@ -95,7 +86,7 @@ export class AgentGroupsService {
         return data.next ? this.getAgentGroups(data.next) : Observable.empty();
       }),
       takeWhile((data) => data.next !== undefined),
-      map((page) => page.data),
+      map((_page) => _page.data),
       scan((acc, v) => [...acc, ...v]),
     );
   }
@@ -103,7 +94,7 @@ export class AgentGroupsService {
   getAgentGroups(page: OrbPagination<AgentGroup>) {
     const { order, dir, offset, limit } = page;
 
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('order', order)
       .set('dir', dir)
       .set('offset', offset.toString())
@@ -112,13 +103,18 @@ export class AgentGroupsService {
     return this.http
       .get(environment.agentGroupsUrl, { params })
       .map((resp: any) => {
-        const { order, direction: dir, offset, limit, total, agentGroups: data } = resp;
-        const next = offset + limit < total && {
+        const {
+          offset: _offset,
+          total,
+          limit: _limit,
+          agentGroups: data,
+        } = resp;
+        const next = _offset + limit < total && {
           limit,
           order,
           dir,
-          offset: (parseInt(offset, 10) + parseInt(limit, 10)).toString(),
-        }
+          offset: (parseInt(_offset, 10) + parseInt(_limit, 10)).toString(),
+        };
 
         return {
           order,

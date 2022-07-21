@@ -8,15 +8,17 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { DropdownFilterItem } from 'app/common/interfaces/mainflux.interface';
-import { ColumnMode, DatatableComponent, TableColumn } from '@swimlane/ngx-datatable';
-import { NgxDatabalePageInfo, OrbPagination } from 'app/common/interfaces/orb/pagination.interface';
-import { Dataset } from 'app/common/interfaces/orb/dataset.policy.interface';
-import { DatasetPoliciesService } from 'app/common/services/dataset/dataset.policies.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DatasetDeleteComponent } from 'app/pages/datasets/delete/dataset.delete.component';
 import { NbDialogService } from '@nebular/theme';
+import {
+  ColumnMode,
+  DatatableComponent,
+  TableColumn,
+} from '@swimlane/ngx-datatable';
+import { DropdownFilterItem } from 'app/common/interfaces/mainflux.interface';
+import { DatasetPoliciesService } from 'app/common/services/dataset/dataset.policies.service';
 import { NotificationsService } from 'app/common/services/notifications/notifications.service';
+import { DatasetDeleteComponent } from 'app/pages/datasets/delete/dataset.delete.component';
 import { DatasetDetailsComponent } from 'app/pages/datasets/details/dataset.details.component';
 
 @Component({
@@ -24,7 +26,8 @@ import { DatasetDetailsComponent } from 'app/pages/datasets/details/dataset.deta
   templateUrl: './dataset.list.component.html',
   styleUrls: ['./dataset.list.component.scss'],
 })
-export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class DatasetListComponent
+  implements OnInit, AfterViewInit, AfterViewChecked {
   columnMode = ColumnMode;
 
   columns: TableColumn[];
@@ -55,7 +58,7 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
       label: 'Valid',
       prop: 'valid',
       selected: false,
-      filter: (dataset, valid) => `${ dataset?.valid }`.includes(name),
+      filter: (dataset, valid) => `${dataset?.valid}`.includes(name),
     },
   ];
 
@@ -83,12 +86,14 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     private route: ActivatedRoute,
     private router: Router,
     private datasetPoliciesService: DatasetPoliciesService,
-  ) {
-    
-  }
+  ) {}
 
   ngAfterViewChecked() {
-    if (this.table && this.table.recalculate && (this.tableWrapper.nativeElement.clientWidth !== this.currentComponentWidth)) {
+    if (
+      this.table &&
+      this.table.recalculate &&
+      this.tableWrapper.nativeElement.clientWidth !== this.currentComponentWidth
+    ) {
       this.currentComponentWidth = this.tableWrapper.nativeElement.clientWidth;
       this.table.recalculate();
       this.cdr.detectChanges();
@@ -96,9 +101,7 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
     }
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     this.columns = [
@@ -147,41 +150,43 @@ export class DatasetListComponent implements OnInit, AfterViewInit, AfterViewChe
   }
 
   onOpenEdit(dataset: any) {
-    this.router.navigate(
-      [`edit/${ dataset.id }`],
-      {
-        relativeTo: this.route.parent,
-        state: { dataset: dataset, edit: true },
-      },
-    );
+    this.router.navigate([`edit/${dataset.id}`], {
+      relativeTo: this.route.parent,
+      state: { dataset: dataset, edit: true },
+    });
   }
 
   openDeleteModal(row: any) {
     const { id } = row;
-    this.dialogService.open(DatasetDeleteComponent, {
-      context: { name: row.name },
-      autoFocus: true,
-      closeOnEsc: true,
-    }).onClose.subscribe(
-      confirm => {
+    this.dialogService
+      .open(DatasetDeleteComponent, {
+        context: { name: row.name },
+        autoFocus: true,
+        closeOnEsc: true,
+      })
+      .onClose.subscribe((confirm) => {
         if (confirm) {
           this.datasetPoliciesService.deleteDataset(id).subscribe(() => {
-            this.notificationsService.success('Dataset successfully deleted', '');
+            this.notificationsService.success(
+              'Dataset successfully deleted',
+              '',
+            );
           });
         }
-      },
-    );
+      });
   }
 
   openDetailsModal(row: any) {
-    this.dialogService.open(DatasetDetailsComponent, {
-      context: { dataset: row },
-      autoFocus: true,
-      closeOnEsc: true,
-    }).onClose.subscribe((resp) => {
-      if (resp) {
-        this.onOpenEdit(row);
-      }
-    });
+    this.dialogService
+      .open(DatasetDetailsComponent, {
+        context: { dataset: row },
+        autoFocus: true,
+        closeOnEsc: true,
+      })
+      .onClose.subscribe((resp) => {
+        if (resp) {
+          this.onOpenEdit(row);
+        }
+      });
   }
 }

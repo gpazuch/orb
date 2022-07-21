@@ -99,9 +99,10 @@
 
   nb-card nb-list {
     @include nb-scrollbars(
-        nb-theme(card-scrollbar-color),
-        nb-theme(card-scrollbar-background-color),
-        nb-theme(card-scrollbar-width));
+      nb-theme(card-scrollbar-color),
+      nb-theme(card-scrollbar-background-color),
+      nb-theme(card-scrollbar-width)
+    );
   }
 
   .table {

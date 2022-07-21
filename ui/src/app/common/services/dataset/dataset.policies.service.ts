@@ -1,21 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import 'rxjs/add/observable/empty';
 
 import { Dataset } from 'app/common/interfaces/orb/dataset.policy.interface';
-import {
-  NgxDatabalePageInfo,
-  OrbPagination,
-} from 'app/common/interfaces/orb/pagination.interface';
+import { OrbPagination } from 'app/common/interfaces/orb/pagination.interface';
 import { NotificationsService } from 'app/common/services/notifications/notifications.service';
 import { environment } from 'environments/environment';
 import { expand, map, scan, takeWhile } from 'rxjs/operators';
-
-// default filters
-const defLimit: number = 100;
-const defOrder: string = 'name';
-const defDir = 'asc';
 
 @Injectable()
 export class DatasetPoliciesService {
@@ -104,23 +96,31 @@ export class DatasetPoliciesService {
           : Observable.empty();
       }),
       takeWhile((data) => data.next !== undefined),
-      map((page) => page.data),
+      map((_page) => _page.data),
       scan((acc, v) => [...acc, ...v]),
     );
   }
 
   getDatasetPolicies(page: OrbPagination<Dataset>) {
-    let params = new HttpParams()
-    .set('order', page.order)
-    .set('dir', page.dir)
-    .set('offset', page.offset.toString())
-    .set('limit', page.limit.toString());
+    const params = new HttpParams()
+      .set('order', page.order)
+      .set('dir', page.dir)
+      .set('offset', page.offset.toString())
+      .set('limit', page.limit.toString());
 
     return this.http
       .get(environment.datasetPoliciesUrl, { params })
       .pipe(
         map((resp: any) => {
-          const { order, direction: dir, offset, limit, total, datasets: data, tags } = resp;
+          const {
+            order,
+            direction: dir,
+            offset,
+            limit,
+            total,
+            datasets: data,
+            tags,
+          } = resp;
           const next = offset + limit < total && {
             limit,
             order,

@@ -1,7 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AgentGroup } from 'app/common/interfaces/orb/agent.group.interface';
-import { Agent } from 'app/common/interfaces/orb/agent.interface';
-import { AgentPolicy } from 'app/common/interfaces/orb/agent.policy.interface';
 import { Dataset } from 'app/common/interfaces/orb/dataset.policy.interface';
 import { Sink } from 'app/common/interfaces/orb/sink.interface';
 import { AgentGroupsService } from 'app/common/services/agents/agent.groups.service';
@@ -14,17 +12,13 @@ import {
   defer,
   EMPTY,
   forkJoin,
-  from,
   merge,
   Observable,
-  of,
   Subject,
   timer,
-  zip,
 } from 'rxjs';
 import {
   debounceTime,
-  filter,
   map,
   mergeMap,
   retry,
@@ -116,7 +110,7 @@ export class OrbService implements OnDestroy {
       )
       .reduce((acc, val) => acc.concat(val), [])
       .filter(this.onlyUnique);
-  };
+  }
 
   ngOnDestroy() {
     this.killPolling.next();
@@ -163,7 +157,7 @@ export class OrbService implements OnDestroy {
     // retrieve policy
     return this.policy.getAgentPolicyById(id).pipe(
       mergeMap((policy) =>
-      // need a way to get a dataset linked to a policy without having to filter it out
+        // need a way to get a dataset linked to a policy without having to filter it out
         this.dataset.getAllDatasets().pipe(
           map((_dataset) =>
             _dataset.filter((dataset) => policy.id === dataset.agent_policy_id),
@@ -177,27 +171,29 @@ export class OrbService implements OnDestroy {
             ).pipe(map((groups) => ({ datasets, groups, policy }))),
           ),
           // same for sinks
-          mergeMap(({datasets, groups}) => 
+          mergeMap(({ datasets, groups }) =>
             forkJoin(
               datasets
                 .map((dataset) => dataset?.sink_ids)
                 .reduce((acc, val) => acc.concat(val), [])
-                .map((sinkId) => this.sink.getSinkById(sinkId))
-            ).pipe(map((sinks) => ({ datasets, sinks, policy, groups })))
+                .map((sinkId) => this.sink.getSinkById(sinkId)),
+            ).pipe(map((sinks) => ({ datasets, sinks, policy, groups }))),
           ),
         ),
       ),
       // from here on I can map to any shape I like
       // dataset list uses the info below
-      map(({datasets, sinks, policy, groups}) => ({
+      map(({ datasets, sinks, policy, groups }) => ({
         datasets: datasets.map((dataset) => ({
           ...dataset,
-          agent_group: groups.find((group) => group.id === dataset.agent_group_id),
+          agent_group: groups.find(
+            (group) => group.id === dataset.agent_group_id,
+          ),
           agent_policy: policy,
           sinks: sinks.filter((sink) => dataset.sink_ids.includes(sink.id)),
         })),
         sinks,
-        policy: {...policy, groups, datasets},
+        policy: { ...policy, groups, datasets },
         groups,
       })),
     );

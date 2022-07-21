@@ -3,19 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import 'rxjs/add/observable/empty';
 
-import {
-  NgxDatabalePageInfo,
-  OrbPagination,
-} from 'app/common/interfaces/orb/pagination.interface';
+import { OrbPagination } from 'app/common/interfaces/orb/pagination.interface';
 import { Sink } from 'app/common/interfaces/orb/sink.interface';
 import { NotificationsService } from 'app/common/services/notifications/notifications.service';
 import { environment } from 'environments/environment';
-import {
-  catchError,
-  expand,
-  map, scan,
-  takeWhile,
-} from 'rxjs/operators';
+import { catchError, expand, map, scan, takeWhile } from 'rxjs/operators';
 
 @Injectable()
 export class SinksService {
@@ -85,13 +77,13 @@ export class SinksService {
         return data.next ? this.getSinks(data.next) : Observable.empty();
       }),
       takeWhile((data) => data.next !== undefined),
-      map((page) => page.data),
+      map((_page) => _page.data),
       scan((acc, v) => [...acc, ...v]),
     );
   }
 
   getSinks(page: OrbPagination<Sink>) {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('order', page.order)
       .set('dir', page.dir)
       .set('offset', page.offset.toString())
@@ -101,7 +93,15 @@ export class SinksService {
       .get(environment.sinksUrl, { params })
       .pipe(
         map((resp: any) => {
-          const { order, direction: dir, offset, limit, total, sinks: data, tags } = resp;
+          const {
+            order,
+            direction: dir,
+            offset,
+            limit,
+            total,
+            sinks: data,
+            tags,
+          } = resp;
           const next = offset + limit < total && {
             limit,
             order,
