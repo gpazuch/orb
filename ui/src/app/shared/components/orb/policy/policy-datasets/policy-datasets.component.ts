@@ -29,11 +29,6 @@ import { concatMap } from 'rxjs/operators';
 import { AgentGroupDetailsComponent } from 'app/pages/fleet/groups/details/agent.group.details.component';
 import { SinkDetailsComponent } from 'app/pages/sinks/details/sink.details.component';
 
-interface FlexDataset extends Dataset {
-    sinks?: Sink[];
-    agent_group?: AgentGroup;
-}
-
 @Component({
     selector: 'ngx-policy-datasets',
     templateUrl: './policy-datasets.component.html',
@@ -42,12 +37,13 @@ interface FlexDataset extends Dataset {
 export class PolicyDatasetsComponent implements OnInit, OnDestroy,
     AfterViewInit, AfterViewChecked, OnChanges {
     @Input()
-    policy: AgentPolicy;
+    datasets: Dataset[];
+
+    @Input()
+    policy: AgentPolicy
 
     @Output()
     refreshPolicy: EventEmitter<string>;
-
-    datasets: FlexDataset[];
 
     isLoading: boolean;
 
@@ -82,45 +78,22 @@ export class PolicyDatasetsComponent implements OnInit, OnDestroy,
     private currentComponentWidth;
 
     constructor(
-        private datasetService: DatasetPoliciesService,
-        private groupsService: AgentGroupsService,
-        private sinksService: SinksService,
         private dialogService: NbDialogService,
         private cdr: ChangeDetectorRef,
         protected router: Router,
         protected route: ActivatedRoute,
     ) {
         this.refreshPolicy = new EventEmitter<string>();
-        this.policy = {};
         this.datasets = [];
         this.errors = {};
     }
 
     ngOnInit(): void {
-        this.isLoading = true;
+        
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.policy) {
-            this.retrieveInfo();
-        }
-    }
-
-    retrieveInfo() {
-        if (this.isLoading) {
-            return;
-        }
-        this.subscription = this.retrievePolicyDatasets()
-            .pipe(
-                concatMap(datasets => this.retrieveAgentGroups()),
-                concatMap(sinks => this.retrieveSinks()))
-            .subscribe(resp => {
-                this.isLoading = false;
-                if (this.table) {
-                    this.table.rows = this.datasets;
-                }
-                this.cdr.markForCheck();
-            });
+        
     }
 
     ngAfterViewInit() {
@@ -185,49 +158,6 @@ export class PolicyDatasetsComponent implements OnInit, OnDestroy,
         }
     }
 
-    retrievePolicyDatasets() {
-        return this.datasetService.getAllDatasets()
-            .map(resp => {
-                this.datasets = resp.filter(
-                    dataset => dataset.agent_policy_id === this.policy.id);
-                if (this.table) {
-                    this.table.rows = this.datasets;
-                }
-                return this.datasets;
-            });
-    }
-
-    // TODO this should be avoided
-    retrieveAgentGroups() {
-        return this.groupsService.getAllAgentGroups()
-            .map(resp => {
-                const groups = resp;
-                this.datasets = this.datasets.map(dataset => {
-                    dataset.agent_group = groups.find(
-                        group => group.id === dataset.agent_group_id);
-                    return dataset;
-                });
-                if (this.table) {
-                    this.table.rows = this.datasets;
-                }
-                return resp;
-            });
-    }
-
-    retrieveSinks() {
-        return this.sinksService.getAllSinks()
-            .map(resp => {
-                const sinks = resp;
-                this.datasets = this.datasets.map(dataset => {
-                    dataset.sinks = dataset.sink_ids.map(
-                        id => sinks.find(sink => sink.id === id));
-                    return dataset;
-                });
-                if (this.table) {
-                    this.table.rows = this.datasets;
-                }
-            });
-    }
 
     onCreateDataset() {
         this.dialogService.open(DatasetFromComponent,
@@ -259,7 +189,7 @@ export class PolicyDatasetsComponent implements OnInit, OnDestroy,
                 closeOnBackdropClick: true,
                 hasBackdrop: true,
             }).onClose.subscribe(resp => {
-            if (resp === 'changed' || 'deleted') {
+            if (resp === 'changed' || resp === 'deleted') {
                 this.refreshPolicy.emit('refresh-from-dataset');
             }
         });

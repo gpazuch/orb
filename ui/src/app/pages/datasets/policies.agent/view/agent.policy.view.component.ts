@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AgentPolicy } from 'app/common/interfaces/orb/agent.policy.interface';
+import { Dataset } from 'app/common/interfaces/orb/dataset.policy.interface'
 import {
   PolicyConfig,
 } from 'app/common/interfaces/orb/policy/config/policy.config.interface';
@@ -12,6 +13,7 @@ import {
 import {
   NotificationsService,
 } from 'app/common/services/notifications/notifications.service';
+import { OrbService } from 'app/common/services/orb.service'
 import {
   PolicyDetailsComponent,
 } from 'app/shared/components/orb/policy/policy-details/policy-details.component';
@@ -34,6 +36,8 @@ export class AgentPolicyViewComponent implements OnInit, OnDestroy {
   policyId: string;
 
   policy: AgentPolicy;
+  
+  datasets: Dataset[];
 
   policySubscription: Subscription;
 
@@ -49,9 +53,11 @@ export class AgentPolicyViewComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private policiesService: AgentPoliciesService,
+    private orb: OrbService,
     private cdr: ChangeDetectorRef,
     private notifications: NotificationsService,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isLoading = true;
@@ -135,10 +141,10 @@ export class AgentPolicyViewComponent implements OnInit, OnDestroy {
   }
 
   retrievePolicy() {
-    this.policySubscription = this.policiesService
-      .getAgentPolicyById(this.policyId)
-      .subscribe(policy => {
+    this.policySubscription = this.orb.getPolicyFullView(this.policyId)
+      .subscribe(({policy, datasets}) => {
         this.policy = policy;
+        this.datasets = datasets;
         this.isLoading = false;
         this.cdr.markForCheck();
       });
