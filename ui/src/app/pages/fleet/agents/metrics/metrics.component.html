@@ -18,57 +18,51 @@
         <div class="resources-body">
             <ol class="top-title">CPU Usage
                 <li *ngFor="let cpu of resources['cpu_usage'] | keyvalue"><span
-                        class="top-key">{{cpu.key}}</span> {{cpu.value}}</li>
+                        class="top-key">{{cpu.key}}</span> <span class="top-value">{{cpu.value}}</span></li>
             </ol>
             <ol class="top-title">Event Rate
                 <li *ngFor="let cpu of resources['event_rate'] | keyvalue"><span
-                        class="top-key">{{cpu.key}}</span> {{cpu.value}}</li>
+                        class="top-key">{{cpu.key}}</span> <span class="top-value">{{cpu.value}}</span></li>
             </ol>
             <ol class="top-title">Memory Bytes
                 <li *ngFor="let cpu of resources['cpu_usage'] | keyvalue"><span
-                        class="top-key">{{cpu.key}}</span> {{cpu.value}}</li>
+                        class="top-key">{{cpu.key}}</span> <span class="top-value">{{cpu.value}}</span></li>
             </ol>
             <ol class="top-title">Counters
-                <li><span><span class="top-key">Deep Samples:</span> {{resources['deep_samples']}}</span></li>
-                <li><span><span class="top-key">Total:</span> {{resources['total']}}</span></li>
-                <li><span><span class="top-key">Handler Count:</span> {{resources['handler_count']}}</span></li>
-                <li><span><span class="top-key">Policy Count:</span> {{resources['policy_count']}}</span></li>
+                <li><span class="top-key">Deep Samples:</span> <span class="top-value">{{resources['deep_samples']}}</span></li>
+                <li><span class="top-key">Total:</span> <span class="top-value">{{resources['total']}}</span></li>
+                <li><span class="top-key">Handler Count:</span> <span class="top-value">{{resources['handler_count']}}</span></li>
+                <li><span class="top-key">Policy Count:</span> <span class="top-value">{{resources['policy_count']}}</span></li>
             </ol>
         </div>
     </div>
-    <p>handler types: {{availableTypes | json}}</p>
-    <p>handler names: {{handlersNames | json}}</p>
     <div>
         <ng-container *ngFor="let handler of handlers | keyvalue">
             <div class="resources-panel">
                 <div class="resources-header">
                     <span class="panel-title">{{handler.value.type | uppercase}}</span>
-                    <span><span
-                            class="top-key">Period:</span> {{handler.value['period']['start_ts'] * 1000 | date:'M/d/yy, h:mm:ss a'}}
-                        to
-                        {{(handler.value['period']['start_ts'] + handler.value['period']['length']) * 1000 | date:'M/d/yy, h:mm:ss a'}}</span>
                 </div>
                 <div class="resources-body">
                     <ng-container [ngSwitch]="handler.value.type">
                         <ng-container *ngSwitchCase="'packets'">
                             <ol class="top-title">
-                                <li><span><span class="top-key">deep_samples</span> {{handler.value['deep_samples']}}</span></li>
-                                <li><span><span class="top-key">filtered</span> {{handler.value['filtered']}}</span></li>
-                                <li><span><span class="top-key">in</span> {{handler.value['in']}}</span></li>
-                                <li><span><span class="top-key">ipv4</span> {{handler.value['ipv4']}}</span></li>
-                                <li><span><span class="top-key">ipv6</span> {{handler.value['ipv6']}}</span></li>
-                                <li><span><span class="top-key">other_l4</span> {{handler.value['other_l4']}}</span></li>
-                                <li><span><span class="top-key">out</span> {{handler.value['out']}}</span></li>
-                                <li><span><span class="top-key">tcp</span> {{handler.value['tcp']}}</span></li>
-                                <li><span><span class="top-key">total</span> {{handler.value['total']}}</span></li>
-                                <li><span><span class="top-key">udp</span> {{handler.value['udp']}}</span></li>
+                                <li><span class="top-key">deep_samples</span> <span class="top-value">{{handler.value['deep_samples']}}</span></li>
+                                <li><span class="top-key">filtered</span> <span class="top-value">{{handler.value['filtered']}}</span></li>
+                                <li><span class="top-key">in</span> <span class="top-value">{{handler.value['in']}}</span></li>
+                                <li><span class="top-key">ipv4</span> <span class="top-value">{{handler.value['ipv4']}}</span></li>
+                                <li><span class="top-key">ipv6</span> <span class="top-value">{{handler.value['ipv6']}}</span></li>
+                                <li><span class="top-key">other_l4</span> <span class="top-value">{{handler.value['other_l4']}}</span></li>
+                                <li><span class="top-key">out</span> <span class="top-value">{{handler.value['out']}}</span></li>
+                                <li><span class="top-key">tcp</span> <span class="top-value">{{handler.value['tcp']}}</span></li>
+                                <li><span class="top-key">total</span> <span class="top-value">{{handler.value['total']}}</span></li>
+                                <li><span class="top-key">udp</span> <span class="top-value">{{handler.value['udp']}}</span></li>
                             </ol>
                         </ng-container>
                         <ng-container *ngSwitchCase="'pcap'">
                             <ol class="top-title">
-                                <li><span><span class="top-key">if_drops</span> {{handler.value['if_drops']}}</span></li>
-                                <li><span><span class="top-key">os_drops</span> {{handler.value['os_drops']}}</span></li>
-                                <li><span><span class="top-key">tcp_reassembly_errors</span> {{handler.value['tcp_reassembly_errors']}}</span></li>
+                                <li><span class="top-key">if_drops</span> <span class="top-value">{{handler.value['if_drops']}}</span></li>
+                                <li><span class="top-key">os_drops</span> <span class="top-value">{{handler.value['os_drops']}}</span></li>
+                                <li><span class="top-key">tcp_reassembly_errors</span> <span class="top-value">{{handler.value['tcp_reassembly_errors']}}</span></li>
                             </ol>
                         </ng-container>
                     </ng-container>
@@ -79,10 +73,8 @@
                             <ol class="top-title">
                             {{metric.key}}
                                 <li *ngFor="let content of metric.value | keyvalue">
-                                <span>
                                     <span class="top-key">{{content.key}}</span>
-                                    {{content.value}}
-                                </span>
+                                    <span class="top-value">{{content.value}}</span>
                                 </li>
                             </ol>
                         </ng-container>
@@ -94,10 +86,8 @@
                                     <ol class="top-title">
                                         {{rate.key}}
                                         <li *ngFor="let content of rate.value | keyvalue">
-                                            <span>
-                                                <span class="top-key">{{content.key}}</span>
-                                                {{content.value}}
-                                            </span>
+                                            <span class="top-key">{{content.key}}</span>
+                                            <span class="top-value">{{content.value}}</span>                                        
                                         </li>
                                     </ol>
                                 </li>
@@ -107,11 +97,9 @@
                         <ng-container *ngIf="metric.key.includes('top')">
                             <ol class="top-title">
                                 {{metric.key}}
-                                <li *ngFor="let content of metric.value">
-                                <span>
-                                    <span class="top-key">{{content.name}}</span>
-                                    {{content.estimate}}
-                                </span>
+                                <li *ngFor="let content of metric.value"> 
+                                    <span class="top-key">{{content.name}}</span> 
+                                    <span class="top-value">{{content.estimate}}</span>
                                 </li>
                             </ol>
                         </ng-container>
@@ -122,7 +110,7 @@
                                     <ol class="top-title">
                                         counts
                                         <li *ngFor="let count of metric.value['counts'] | keyvalue">
-                                            <span class="top-key">{{count.key}}</span><span> {{count.value}}</span>
+                                            <span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span>
                                         </li>
                                     </ol>
                                 </li>
@@ -133,7 +121,7 @@
                                             <ol *ngIf="!isCardinal(count.value)" class="top-title">
                                                 {{count.key}}
                                                 <li *ngFor="let top of count.value | keyvalue">
-                                                    <span><span class="top-key">{{top.key}}</span> {{top.value}}</span>
+                                                    <span class="top-key">{{top.key}}</span> {{top.value}}
                                                 </li></ol>
                                             <span *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> {{count.value}}</span>
                                         </li>
@@ -146,9 +134,9 @@
                                             <ol *ngIf="!isCardinal(count.value)" class="top-title">
                                                 {{count.key}}
                                                 <li *ngFor="let top of count.value | keyvalue">
-                                                <span><span class="top-key">{{top.key}}</span> {{top.value}}</span>
+                                                <span class="top-key">{{top.key}}</span> <span class="top-value">{{top.value}}</span>
                                             </li></ol>
-                                            <span *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> {{count.value}}</span>
+                                            <span *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span></span>
                                         </li>
                                     </ol>
                                 </li>
