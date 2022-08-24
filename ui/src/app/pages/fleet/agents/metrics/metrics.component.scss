@@ -1,6 +1,5 @@
 div.resources-panel {
   display: flex;
-  width: fit-content;
   flex-direction: column;
   flex-wrap: wrap;
   min-width: 400px;
@@ -83,9 +82,8 @@ div.resources-body {
 
 .top-value {
   color: #62d9ff;
-  font-weight: 500;
   background: rgba(175, 80, 255, 0.25);
-  border: 1px solid #Af50ff;
+  border: 1px solid #af50ff;
   border-radius: 16px;
   font-family: 'Montserrat';
   font-style: normal;
