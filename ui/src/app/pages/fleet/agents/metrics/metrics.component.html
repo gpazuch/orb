@@ -80,9 +80,9 @@
                         </ng-container>
                         <ng-container *ngIf="metric.key.includes('rates')
                         || metric.key.includes('protocol')">
-                            <ol class="top-title">
+                            <div class="top-title">
                                 {{metric.key}}
-                                <li *ngFor="let rate of metric.value | keyvalue">
+                                <div *ngFor="let rate of metric.value | keyvalue">
                                     <ol class="top-title">
                                         {{rate.key}}
                                         <li *ngFor="let content of rate.value | keyvalue">
@@ -90,9 +90,9 @@
                                             <span class="top-value">{{content.value}}</span>                                        
                                         </li>
                                     </ol>
-                                </li>
+                                </div>
 
-                            </ol>
+                            </div>
                         </ng-container>
                         <ng-container *ngIf="metric.key.includes('top')">
                             <ol class="top-title">
@@ -104,17 +104,17 @@
                             </ol>
                         </ng-container>
                         <ng-container *ngIf="metric.key.includes('xact')">
-                            <ol class="top-title">
+                            <div class="top-title">
                                 {{metric.key}}
-                                <li class="top-key">
+                                <div class="top-key">
                                     <ol class="top-title">
                                         counts
                                         <li *ngFor="let count of metric.value['counts'] | keyvalue">
                                             <span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span>
                                         </li>
                                     </ol>
-                                </li>
-                                <li class="top-key">
+                                </div>
+                                <div class="top-key">
                                     <ol class="top-title">
                                         in
                                         <li *ngFor="let count of metric.value['in'] | keyvalue">
@@ -123,24 +123,24 @@
                                                 <li *ngFor="let top of count.value | keyvalue">
                                                     <span class="top-key">{{top.key}}</span> {{top.value}}
                                                 </li></ol>
-                                            <span *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> {{count.value}}</span>
+                                            <ng-container *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span></ng-container>
                                         </li>
                                     </ol>
-                                </li>
-                                <li class="top-key">
-                                    <ol class="top-title">
+                                </div>
+                                <div class="top-key">
+                                    <div class="top-title">
                                         out
-                                        <li *ngFor="let count of metric.value['out'] | keyvalue">
+                                        <div *ngFor="let count of metric.value['out'] | keyvalue">
                                             <ol *ngIf="!isCardinal(count.value)" class="top-title">
                                                 {{count.key}}
                                                 <li *ngFor="let top of count.value | keyvalue">
                                                 <span class="top-key">{{top.key}}</span> <span class="top-value">{{top.value}}</span>
                                             </li></ol>
-                                            <span *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span></span>
-                                        </li>
-                                    </ol>
-                                </li>
-                            </ol>
+                                            <ng-container *ngIf="isCardinal(count.value)"><span class="top-key">{{count.key}}</span> <span class="top-value">{{count.value}}</span></ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </ng-container>
                     </ng-container>
                 </div>
