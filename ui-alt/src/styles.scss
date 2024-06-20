@@ -1,0 +1,126 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+
+@include mat.core();
+// Plus imports for other components in your app.
+@import "colors.scss";
+@import "typos.scss";
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$orb-primary: mat.define-palette($orb-grey-palette);
+$orb-accent: mat.define-palette(mat.$blue-palette);
+
+// The warn palette is optional (defaults to red).
+$orb-warn: mat.define-palette(mat.$pink-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$orb-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $orb-primary,
+      accent: $orb-accent,
+      warn: $orb-warn,
+      foreground: $orb-theme-background-light,
+      background: $orb-theme-background,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($orb-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+body,
+button {
+  margin: 0;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+span,
+a,
+p,
+h1,
+h2,
+h3,
+mat-label,
+mat-form-field {
+  font-family: "Montserrat", sans-serif;
+}
+
+mat-form-field.mat-form-field {
+  @extend .label;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: $orb-theme-text-gray !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+input {
+  color: $orb-theme-text-white;
+}
+
+.mat-toolbar {
+  background-color: $orb-theme-background;
+}
+
+.mat-chip {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: x-small;
+  color: $orb-theme-background !important;
+}
+
+.mat-card {
+  background-color: $orb-theme-background-light;
+}
+
+.mat-card-title {
+  margin-bottom: 14px !important;
+  > span {
+    color: $orb-theme-text-white;
+  }
+}
+
+.ghost-button {
+  padding: 0;
+  margin: 0;
+
+  > span {
+    color: $orb-white;
+  }
+}
+
+.link-button {
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  > span {
+    color: $orb-blue;
+    text-decoration: underline;
+  }
+}
+
+button.login-button {
+  width: 100%;
+  margin-bottom: 2ch;
+}

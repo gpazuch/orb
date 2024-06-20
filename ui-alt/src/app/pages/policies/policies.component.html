@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span class="page-title">Agent Policy List</span>
+    <span class="spacer"></span>
+    <button
+      mat-button
+      class="mat-flat-button"
+      color="accent"
+      (click)="addItem = true"
+    >
+      Create Policy
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row>
+    <app-filter [availableFilters]="filterOptions"></app-filter>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="container" fxLayout="row" fxLayoutAlign="space-evenly start">
+  <app-policy-item
+    [policy]="policy"
+    fxFlex="1 1 auto"
+    *ngFor="let policy of filteredPolicies$ | async"
+  >
+  </app-policy-item>
+  <app-policy-add
+    *ngIf="addItem"
+    (onClose)="addItem = false"
+    fxFlex="1 0 auto"
+  ></app-policy-add>
+</div>

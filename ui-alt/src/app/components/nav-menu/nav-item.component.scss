@@ -1,0 +1,20 @@
+@import '/src/styles';
+
+.navigation {
+  display: contents;
+}
+
+.mat-list-item {
+  color: $orb-theme-text-gray;
+
+  &.active {
+    color: $orb-theme-text-white;
+    .mat-icon {
+      color: $orb-pink;
+    }
+  }
+}
+
+mat-icon {
+  margin-right: 1rem;
+}

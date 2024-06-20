@@ -1,0 +1,19 @@
+@import 'src/colors.scss';
+
+mat-chip-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row;
+}
+
+.mat-standard-chip {
+  margin: 1px;
+  min-height: 24px;
+  > span {
+    color: $orb-theme-background;
+    white-space: nowrap;
+  }
+}
+
+

@@ -1,0 +1,51 @@
+<div
+  class="login-container"
+  fxFlex="1 0 auto"
+  fxLayout="column"
+  fxLayoutAlign="center"
+>
+  <h1 class="page-title">Log in or sign up</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <mat-form-field>
+      <mat-label class="label">Email</mat-label>
+      <input matInput class="large-input" formControlName="email" />
+      <mat-error *ngIf="loginForm.dirty || loginForm.touched"> </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="label">Password</mat-label>
+      <input
+        matInput
+        class="large-input"
+        [type]="hide ? 'password' : 'text'"
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        class="ghost-button"
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+        tabindex="99"
+      >
+        <mat-icon class="large-input">{{
+          hide ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="loginForm.dirty || loginForm.touched"> </mat-error>
+    </mat-form-field>
+    <button mat-button tabindex="1" class="link-button" routerLink="../forgot">
+      Forgot Password?
+    </button>
+    <button mat-flat-button color="accent" type="submit" class="login-button">
+      Log in
+    </button>
+    <span class="label"
+      >Don't have an account?&nbsp;
+      <button mat-button class="link-button" routerLink="../register">
+        Register
+      </button>
+    </span>
+  </form>
+</div>

@@ -1,0 +1,124 @@
+<mat-form-field>
+  <mat-label>Filter by</mat-label>
+  <mat-select #master [(ngModel)]="selectedFilter">
+    <mat-option *ngFor="let option of availableFilters" [value]="option">
+      {{ option.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<ng-container *ngIf="selectedFilter">
+  <div [ngSwitch]="selectedFilter?.type">
+    <ng-container *ngSwitchCase="type.Input"
+      ><div [ngTemplateOutlet]="input"></div
+    ></ng-container>
+    <ng-container *ngSwitchCase="type.AutoComplete"
+      ><div [ngTemplateOutlet]="auto"></div
+    ></ng-container>
+    <ng-container *ngSwitchCase="type.Select"
+      ><div [ngTemplateOutlet]="select"></div
+    ></ng-container>
+    <ng-container *ngSwitchCase="type.MultiSelect"
+      ><div [ngTemplateOutlet]="multi"></div
+    ></ng-container>
+    <ng-container *ngSwitchCase="type.Checkbox"
+      ><div [ngTemplateOutlet]="checkbox"></div
+    ></ng-container>
+    <button mat-button (click)="addFilter()" class="ghost-button">
+      <mat-icon color="accent">add</mat-icon>
+    </button>
+    <mat-chip class="filter-chip">
+      {{ selectedFilter.name + ": " + (filterParam || "") }}
+    </mat-chip>
+  </div>
+</ng-container>
+
+<ng-container class="applied-filters" *ngIf="activeFilters$">
+  <span class="spacer"></span>
+  <span class="body-regular applied-label">Applied Filters</span>
+  <mat-chip-list>
+    <mat-chip
+      class="filter-chip"
+      *ngFor="let filter of activeFilters$ | async; let index = index"
+    >
+      {{ filter.name + ": " + filter?.param }}
+      <button mat-button class="ghost-button" (click)="removeFilter(index)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-chip>
+  </mat-chip-list>
+</ng-container>
+
+<ng-template #input>
+  <mat-form-field>
+    <mat-label>{{ selectedFilter?.name }}</mat-label>
+    <input matInput type="text" [(ngModel)]="filterParam" required />
+  </mat-form-field>
+</ng-template>
+<ng-template #select>
+  <mat-form-field>
+    <mat-label>{{ selectedFilter?.name }}</mat-label>
+    <mat-select [(value)]="filterParam" required>
+      <mat-option
+        *ngFor="let option of selectedFilter?.options"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #auto>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option
+      *ngFor="let option of selectedFilter?.autoSuggestion | async"
+      [value]="option"
+    >
+      {{ option }}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-form-field>
+    <mat-label>{{ selectedFilter?.name }}</mat-label>
+    <input
+      matInput
+      type="text"
+      [matAutocomplete]="auto"
+      [(ngModel)]="filterParam"
+      required
+    />
+  </mat-form-field>
+</ng-template>
+<ng-template #select>
+  <mat-form-field>
+    <mat-label>{{ selectedFilter?.name }}</mat-label>
+    <mat-select [(value)]="filterParam" required>
+      <mat-option
+        *ngFor="let option of selectedFilter?.options"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #multi>
+  <mat-form-field>
+    <mat-label>{{ selectedFilter?.name }}</mat-label>
+    <mat-select [(value)]="filterParam" required multiple>
+      <mat-option
+        [ngClass]="option"
+        *ngFor="let option of selectedFilter?.options"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+
+<ng-template #checkbox>
+  <mat-checkbox [(ngModel)]="filterParam">{{
+    selectedFilter?.name
+  }}</mat-checkbox>
+</ng-template>

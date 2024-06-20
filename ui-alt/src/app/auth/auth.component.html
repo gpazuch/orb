@@ -1,0 +1,28 @@
+<div
+  class="auth-container"
+  fxLayout.lt-sm="column"
+  fxLayout.gt-sm="row"
+  fxLayoutAlign.gt-sm="space-between stretch"
+  fxLayoutAlign="start stretch"
+>
+  <div
+    class="logo-container"
+    fxFlex
+    fxLayout="column"
+    fxLayoutAlign="center start"
+  >
+    <img
+      src="../../assets/images/orb_logo_100.webp"
+      loading="lazy"
+      class="orb-logo"
+    />
+    <p class="page-title">
+      An
+      <button tabindex="100" mat-button class="link-button page-title">
+        Open-Source
+      </button>
+      dynamic<br />edge observability<br />platform
+    </p>
+  </div>
+  <router-outlet #routerauth></router-outlet>
+</div>

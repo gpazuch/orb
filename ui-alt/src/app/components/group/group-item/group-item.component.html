@@ -1,0 +1,21 @@
+<mat-card [ngClass]="group?.state || ''">
+  <mat-card-title class="label">
+    <span>{{ group?.name }}</span>
+    <span class="spacer"></span>
+    <span class="body-regular state" [ngClass]="group?.state || ''">
+      {{ group?.matching_agents?.online }}/{{ group?.matching_agents?.total }}
+    </span>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <span class="last_hb">
+      {{ group?.ts_created | date: "M/d/yy, HH:mm z" }}</span
+    >
+  </mat-card-subtitle>
+  <mat-card-content>
+    <p class="body-regular">{{ group?.description }}</p>
+    <br />
+    <app-tag-display [tags]="group.tags">
+      <p class="body-regular">Tags</p>
+    </app-tag-display>
+  </mat-card-content>
+</mat-card>

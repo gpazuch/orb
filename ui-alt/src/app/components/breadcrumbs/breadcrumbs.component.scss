@@ -1,0 +1,34 @@
+:host {
+  display: inline-flex;
+}
+.breadcrumb {
+  display: inline-flex;
+  background: none;
+  margin: 0;
+  padding-inline-start: 1em !important;
+  margin-block-start: 1.75em !important;
+  a,
+  span {
+    color: darkgrey;
+  }
+  a:hover,
+  span:hover {
+    color: dimgrey;
+    text-decoration: none;
+  }
+  li {
+    list-style: none;
+    float: left;
+    margin: 1pt;
+  }
+  li:last-child {
+    margin-right: 20px;
+  }
+  li::after {
+    content: "/";
+    color: darkgrey;
+  }
+  li:last-child::after {
+    content: "";
+  }
+}

@@ -1,0 +1,30 @@
+@import "src/colors.scss";
+
+:host {
+  display: contents;
+  flex-wrap: wrap;
+  padding: 3px;
+}
+
+mat-form-field {
+  padding-right: 8px;
+}
+
+.applied-filters {
+  align-content: flex-end;
+}
+
+mat-chip > button.ghost-button {
+  min-width: 0;
+  padding: 0;
+}
+
+.filter-chip {
+  color: $orb-blue !important;
+  border: solid;
+  background-color: transparent;
+}
+
+.applied-label {
+  padding-right: 4px;
+}

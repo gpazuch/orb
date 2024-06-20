@@ -1,0 +1,10 @@
+.container {
+  padding: 8px 8px 30ch;
+  height: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+app-agent-item {
+  padding: 5px;
+}

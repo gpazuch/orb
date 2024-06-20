@@ -1,0 +1,10 @@
+<mat-menu #menu="matMenu" xPosition="before">
+  <ng-template matMenuContent>
+    <button mat-menu-item disabled="true" routerLink="/auth/logout">
+      Settings
+    </button>
+    <button id="logout" mat-menu-item routerLink="/auth/logout">Logout</button>
+  </ng-template>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="menu">{{ sub }}</button>

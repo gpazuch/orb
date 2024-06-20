@@ -1,0 +1,28 @@
+<div
+  class="login-container"
+  fxFlex="1 0 auto"
+  fxLayout="column"
+  fxLayoutAlign="center"
+>
+  <h1 class="page-title">Forgot password</h1>
+  <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()" class="login-form">
+    <span class="body-regular forgot"
+      >Enter your email address and we'll send a link to reset your
+      password</span
+    >
+    <mat-form-field>
+      <mat-label class="label">Email</mat-label>
+      <input matInput class="large-input" formControlName="email" />
+      <mat-error *ngIf="forgotForm.dirty || forgotForm.touched"> </mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit" class="login-button">
+      Register
+    </button>
+
+    <button mat-button class="link-button" routerLink="../login">Log in</button>
+
+    <button mat-button class="link-button" routerLink="../register">
+      Create an account
+    </button>
+  </form>
+</div>
